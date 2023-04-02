@@ -79,3 +79,14 @@ vec_size(vec);
 vec_capacity(vec);
 vec_empty(vec);
 ```
+
+## Memory Layout
+The memory of vectors is layed out like so:
+```
++-----------------+---------------+---------------------+
+| size_t capacity | size_t length | char data[capacity] |
++-----------------+---------------+---------------------+
+                                  ^
+                                  |
+                      Pointer given to the user.
+```
