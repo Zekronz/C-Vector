@@ -9,33 +9,33 @@
 #include <string.h>
 #include "vector.h"
 
-vec_ptr __vector_create(size_t _data_size, size_t _cap, size_t _len){
+__vec_ptr __vector_create(size_t _data_size, size_t _cap, size_t _len){
     __vector* v = (__vector*)malloc(sizeof(__vector) + _data_size);
     if(v == NULL) return NULL;
 
     v->cap = _cap;
     v->len = _len;
 
-    return (vec_ptr)(&v->data);
+    return (__vec_ptr)(&v->data);
 }
 
-int __vector_free(vec_ptr _vec){
+int __vector_free(__vec_ptr _vec){
     if(_vec == NULL) return 0;
     free(__vector_struct(_vec));
     return 1;
 }
 
-__vector* __vector_struct(vec_ptr _vec){
+__vector* __vector_struct(__vec_ptr _vec){
     if(_vec == NULL) return NULL;
     return ((__vector*)_vec) - 1;
 }
 
-size_t __vector_length(vec_ptr _vec){
+size_t __vector_length(__vec_ptr _vec){
     if(_vec == NULL) return 0;
     return __vector_struct(_vec)->len;
 }
 
-size_t __vector_capacity(vec_ptr _vec){
+size_t __vector_capacity(__vec_ptr _vec){
     if(_vec == NULL) return 0;
     return __vector_struct(_vec)->cap;
 }
@@ -49,7 +49,7 @@ __vector* __vector_realloc(__vector* _vec, size_t _data_size){
     return new_vec;
 }
 
-int __vector_inc(vec_ptr* _vec, size_t _num_elements, size_t _element_size){
+int __vector_inc(__vec_ptr* _vec, size_t _num_elements, size_t _element_size){
     if(_vec == NULL || _num_elements == 0 || _element_size == 0) return 0;
     __vector* v = __vector_struct(*_vec);
     
@@ -65,7 +65,7 @@ int __vector_inc(vec_ptr* _vec, size_t _num_elements, size_t _element_size){
 
         v = new_vec;
         v->cap = new_cap;
-        *_vec = (vec_ptr)(&v->data);
+        *_vec = (__vec_ptr)(&v->data);
     }
 
     v->len = new_len;
@@ -73,7 +73,7 @@ int __vector_inc(vec_ptr* _vec, size_t _num_elements, size_t _element_size){
     return 1;
 }
 
-int __vector_insert(vec_ptr* _vec, size_t _index, size_t _element_size){
+int __vector_insert(__vec_ptr* _vec, size_t _index, size_t _element_size){
     if(_vec == NULL || _element_size == 0) return 0;
     if((*_vec) == NULL) return 0;
     __vector* v = __vector_struct(*_vec);
@@ -88,7 +88,7 @@ int __vector_insert(vec_ptr* _vec, size_t _index, size_t _element_size){
     return 1;
 }
 
-int __vector_delete(vec_ptr* _vec, size_t _index, size_t _num_elements, size_t _element_size){
+int __vector_delete(__vec_ptr* _vec, size_t _index, size_t _num_elements, size_t _element_size){
     if(_vec == NULL || _element_size == 0 || _num_elements == 0) return 0;
     if((*_vec) == NULL) return 0;
     __vector* v = __vector_struct(*_vec);
@@ -111,7 +111,7 @@ int __vector_delete(vec_ptr* _vec, size_t _index, size_t _num_elements, size_t _
         if(new_vec == NULL) return 0;
         
         v = new_vec;
-        *_vec = (vec_ptr)(&v->data);
+        *_vec = (__vec_ptr)(&v->data);
     }
 
     v->len = new_len;
@@ -120,7 +120,7 @@ int __vector_delete(vec_ptr* _vec, size_t _index, size_t _num_elements, size_t _
     return 1;
 }
 
-int __vector_set(vec_ptr _vec, size_t _index){
+int __vector_set(__vec_ptr _vec, size_t _index){
     if(_vec == NULL) return 0;
     __vector* v = __vector_struct(_vec);
 
@@ -129,7 +129,7 @@ int __vector_set(vec_ptr _vec, size_t _index){
     return 1;
 }
 
-int __vector_get(vec_ptr _vec, size_t _index){
+int __vector_get(__vec_ptr _vec, size_t _index){
     if(_vec == NULL) return 0;
     __vector* v = __vector_struct(_vec);
 
@@ -138,7 +138,7 @@ int __vector_get(vec_ptr _vec, size_t _index){
     return 1;
 }
 
-int __vector_clear(vec_ptr* _vec){
+int __vector_clear(__vec_ptr* _vec){
     if(_vec == NULL) return 0;
     if((*_vec) == NULL) return 0;
     __vector* v = __vector_struct(*_vec);
@@ -150,12 +150,12 @@ int __vector_clear(vec_ptr* _vec){
 
     new_vec->len = 0;
     new_vec->cap = 0;
-    *_vec = (vec_ptr)(&new_vec->data);
+    *_vec = (__vec_ptr)(&new_vec->data);
 
     return 1;
 }
 
-int __vector_reserve(vec_ptr* _vec, size_t _num_elements, size_t _element_size){
+int __vector_reserve(__vec_ptr* _vec, size_t _num_elements, size_t _element_size){
     if(_vec == NULL || _element_size == 0) return 0;
     if((*_vec) == NULL) return 0;
     __vector* v = __vector_struct(*_vec);
@@ -166,12 +166,12 @@ int __vector_reserve(vec_ptr* _vec, size_t _num_elements, size_t _element_size){
     if(new_vec == NULL) return 0;
 
     new_vec->cap = _num_elements;
-    *_vec = (vec_ptr)(&new_vec->data);
+    *_vec = (__vec_ptr)(&new_vec->data);
 
     return 1;
 }
 
-int __vector_resize(vec_ptr* _vec, size_t _num_elements, size_t _element_size){
+int __vector_resize(__vec_ptr* _vec, size_t _num_elements, size_t _element_size){
     if(_vec == NULL || _element_size == 0) return 0;
     if((*_vec) == NULL) return 0;
     __vector* v = __vector_struct(*_vec);
@@ -186,12 +186,12 @@ int __vector_resize(vec_ptr* _vec, size_t _num_elements, size_t _element_size){
 
     new_vec->cap = new_cap;
     new_vec->len = _num_elements;
-    *_vec = (vec_ptr)(&new_vec->data);
+    *_vec = (__vec_ptr)(&new_vec->data);
 
     return 1;
 }
 
-int __vector_shrink(vec_ptr* _vec, size_t _element_size){
+int __vector_shrink(__vec_ptr* _vec, size_t _element_size){
     if(_vec == NULL || _element_size == 0) return 0;
     if((*_vec) == NULL) return 0;
     __vector* v = __vector_struct(*_vec);
@@ -202,7 +202,7 @@ int __vector_shrink(vec_ptr* _vec, size_t _element_size){
     if(new_vec == NULL) return 0;
 
     new_vec->cap = new_vec->len;
-    *_vec = (vec_ptr)(&new_vec->data);
+    *_vec = (__vec_ptr)(&new_vec->data);
 
     return 1;
 }
