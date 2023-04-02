@@ -1,3 +1,10 @@
+/*
+
+    vector.c
+    Copyright (c) 2023 Zekronz - MIT License
+
+*/
+
 #include <stdlib.h>
 #include <string.h>
 #include "vector.h"

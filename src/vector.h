@@ -1,3 +1,10 @@
+/*
+
+    vector.h
+    Copyright (c) 2023 Zekronz - MIT License
+
+*/
+
 #ifndef __VECTOR_H
 #define __VECTOR_H
 
