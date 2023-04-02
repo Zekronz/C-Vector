@@ -29,7 +29,8 @@ int __vector_reserve(vec_ptr* _vec, size_t _num_elements, size_t _element_size);
 int __vector_resize(vec_ptr* _vec, size_t _num_elements, size_t _element_size);
 int __vector_shrink(vec_ptr* _vec, size_t _element_size);
 
-#define vec_create(type, num_elements) (type*)(__vector_create(num_elements * sizeof(type), num_elements, num_elements))
+#define vec_create() __vector_create(0, 0, 0)
+#define vec_create_size(type, num_elements) (type*)(__vector_create(num_elements * sizeof(type), num_elements, num_elements))
 #define vec_free(vec) __vector_free(vec)
 #define vec_length(vec) __vector_length(vec)
 #define vec_size(vec) __vector_length(vec)
