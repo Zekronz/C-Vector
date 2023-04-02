@@ -1,0 +1,7 @@
+# Directories
+bin/
+obj/
+.vscode/
+
+# Files
+build.cbuild
