@@ -6,7 +6,6 @@
 */
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
 #include "vector.h"
 
@@ -54,10 +53,7 @@ __vector* __vector_realloc(__vector* _vec, size_t _data_size){
 
 int __vector_calc_capacity(size_t* _cap, size_t _dest){    
     (*_cap) = 0;
-    if(_dest == 0){
-        printf("New capacity: %I64u\n", (*_cap));
-        return 1;
-    }
+    if(_dest == 0) return 1;
 
     size_t new_cap = 1;
     size_t prev_cap;
@@ -74,7 +70,6 @@ int __vector_calc_capacity(size_t* _cap, size_t _dest){
     if(new_cap < _dest) return 0; //Overflow
 
     (*_cap) = new_cap;
-    printf("New capacity: %I64u\n", (*_cap));
     return 1;
 }
 
