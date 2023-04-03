@@ -26,6 +26,7 @@ __vector* __vector_struct(__vec_ptr _vec);
 size_t __vector_length(__vec_ptr _vec);
 size_t __vector_capacity(__vec_ptr _vec);
 __vector* __vector_realloc(__vector* _vec, size_t _data_size);
+int __vector_calc_capacity(size_t* _cap, size_t _dest);
 int __vector_inc(__vec_ptr* _vec, size_t _num_elements, size_t _element_size);
 int __vector_insert(__vec_ptr* _vec, size_t _index, size_t _element_size);
 int __vector_delete(__vec_ptr* _vec, size_t _index, size_t _num_elements, size_t _element_size);

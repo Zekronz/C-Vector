@@ -6,8 +6,11 @@
 */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "vector.h"
+
+#define __VECTOR_MAX_CAPACITY (size_t)-1
 
 __vec_ptr __vector_create(size_t _data_size, size_t _cap, size_t _len){
     __vector* v = (__vector*)malloc(sizeof(__vector) + _data_size);
@@ -49,6 +52,32 @@ __vector* __vector_realloc(__vector* _vec, size_t _data_size){
     return new_vec;
 }
 
+int __vector_calc_capacity(size_t* _cap, size_t _dest){    
+    (*_cap) = 0;
+    if(_dest == 0){
+        printf("New capacity: %I64u\n", (*_cap));
+        return 1;
+    }
+
+    size_t new_cap = 1;
+    size_t prev_cap;
+    while(new_cap < _dest){
+        prev_cap = new_cap;
+        new_cap *= 2;
+
+        if(new_cap < prev_cap){
+            new_cap = __VECTOR_MAX_CAPACITY;
+            break;
+        }
+    }
+
+    if(new_cap < _dest) return 0; //Overflow
+
+    (*_cap) = new_cap;
+    printf("New capacity: %I64u\n", (*_cap));
+    return 1;
+}
+
 int __vector_inc(__vec_ptr* _vec, size_t _num_elements, size_t _element_size){
     if(_vec == NULL || _num_elements == 0 || _element_size == 0) return 0;
     __vector* v = __vector_struct(*_vec);
@@ -57,8 +86,8 @@ int __vector_inc(__vec_ptr* _vec, size_t _num_elements, size_t _element_size){
     if(new_len < v->len) return 0; //Overflow.
 
     if(new_len > v->cap){
-        size_t new_cap = (v->cap == 0) ? 1 : v->cap * 2;
-        while(new_cap < new_len) new_cap *= 2;
+        size_t new_cap = 0;
+        if(!__vector_calc_capacity(&new_cap, new_len)) return 0; //Overflow.
 
         __vector* new_vec = __vector_realloc(v, _element_size * new_cap);
         if(new_vec == NULL) return 0;
@@ -98,8 +127,8 @@ int __vector_delete(__vec_ptr* _vec, size_t _index, size_t _num_elements, size_t
 
     size_t new_len = v->len - _num_elements;
     size_t old_cap = v->cap;
-    size_t new_cap = (new_len == 0) ? 0 : 1;
-    while(new_cap < new_len) new_cap *= 2;
+    size_t new_cap = 0;
+    if(!__vector_calc_capacity(&new_cap, new_len)) return 0; //Overflow.
 
     if(_index + _num_elements - 1 < v->len - 1){
         char* ptr = (char*)(*_vec);
@@ -178,8 +207,8 @@ int __vector_resize(__vec_ptr* _vec, size_t _num_elements, size_t _element_size)
 
     if(v->len == _num_elements) return 1;
 
-    size_t new_cap = (_num_elements == 0) ? 0 : 1;
-    while(new_cap < _num_elements) new_cap  *= 2;
+    size_t new_cap = 0;
+    if(!__vector_calc_capacity(&new_cap, _num_elements)) return 0; //Overflow.
 
     __vector* new_vec = __vector_realloc(v, new_cap * _element_size);
     if(new_vec == NULL) return 0;
