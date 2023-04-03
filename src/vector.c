@@ -104,6 +104,7 @@ int __vector_insert(__vec_ptr* _vec, size_t _index, size_t _element_size){
 
     size_t old_len = v->len;
     size_t new_len = (_index <= old_len) ? old_len + 1 : old_len + (_index - old_len) + 1;
+    if(new_len < old_len) return 0; //Overflow.
     if(!__vector_inc(_vec, new_len - old_len, _element_size)) return 0;
 
     char* ptr = (char*)(*_vec);
@@ -118,6 +119,7 @@ int __vector_delete(__vec_ptr* _vec, size_t _index, size_t _num_elements, size_t
     __vector* v = __vector_struct(*_vec);
 
     if(_index >= v->len) return 1;
+    if(_index + _num_elements - 1 < _index) return 0; //Overflow.
     if(_index + _num_elements - 1 >= v->len) _num_elements = (v->len - _index);
 
     size_t new_len = v->len - _num_elements;
