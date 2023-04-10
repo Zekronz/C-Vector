@@ -1,5 +1,5 @@
 # C Vector - Dynamic arrays in C.
-Dynamic array implementation for C, inspired by C++ vectors.  
+Dynamic array implementation in C, inspired by C++ vectors.  
 The library is designed to be as straight forward and easy-to-use as possible.  
 It contains multiple functions for manipulating vectors, and elements can be accessed using the `[]` operator.  
 Compatible with C++.
@@ -63,17 +63,17 @@ vec_empty(v); // Returns whether the vector is empty or not.
 vec_create();
 vec_create_size(type, num_elements);
 vec_free(vec);
-vec_get(vec, position);
-vec_set(vec, position, value);
+vec_get(vec, index);
+vec_set(vec, index, value);
 vec_add(vec, value);
-vec_insert(vec, position, value);
-vec_delete(vec, position, value);
+vec_insert(vec, index, value);
+vec_delete(vec, index, value);
 vec_clear(vec);
 vec_resize(vec, num_elements);
 vec_reserve(vec, num_elements);
 vec_shrink(vec);
 vec_fill(vec, value);
-vec_fill_range(vec, position, num_elements, value);
+vec_fill_range(vec, index, num_elements, value);
 vec_length(vec);
 vec_size(vec);
 vec_capacity(vec);

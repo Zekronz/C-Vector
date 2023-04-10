@@ -1,13 +1,13 @@
 /*
 
-    vector.c
+    vec.c
     Copyright (c) 2023 Zekronz - MIT License
 
 */
 
 #include <stdlib.h>
 #include <string.h>
-#include "vector.h"
+#include "vec.h"
 
 #define __VECTOR_MAX_CAPACITY (size_t)-1
 
@@ -75,6 +75,8 @@ int __vector_calc_capacity(size_t* _cap, size_t _dest){
 
 int __vector_inc(__vec_ptr* _vec, size_t _num_elements, size_t _element_size){
     if(_vec == NULL || _num_elements == 0 || _element_size == 0) return 0;
+    if((*_vec) == NULL) return 0;
+
     __vector* v = __vector_struct(*_vec);
     
     size_t new_len = v->len + _num_elements;
@@ -100,6 +102,7 @@ int __vector_inc(__vec_ptr* _vec, size_t _num_elements, size_t _element_size){
 int __vector_insert(__vec_ptr* _vec, size_t _index, size_t _element_size){
     if(_vec == NULL || _element_size == 0) return 0;
     if((*_vec) == NULL) return 0;
+
     __vector* v = __vector_struct(*_vec);
 
     size_t old_len = v->len;
@@ -116,6 +119,7 @@ int __vector_insert(__vec_ptr* _vec, size_t _index, size_t _element_size){
 int __vector_delete(__vec_ptr* _vec, size_t _index, size_t _num_elements, size_t _element_size){
     if(_vec == NULL || _element_size == 0 || _num_elements == 0) return 0;
     if((*_vec) == NULL) return 0;
+
     __vector* v = __vector_struct(*_vec);
 
     if(_index >= v->len) return 1;

@@ -1,6 +1,6 @@
 /*
 
-    vector.h
+    vec.h
     Copyright (c) 2023 Zekronz - MIT License
 
 */
@@ -44,13 +44,13 @@ int __vector_shrink(__vec_ptr* _vec, size_t _element_size);
 #define vec_size(vec) __vector_length(vec)
 #define vec_capacity(vec) __vector_capacity(vec)
 #define vec_add(vec, value) if(__vector_inc((__vec_ptr*)(&vec), 1, sizeof(value))) vec[__vector_length(vec) - 1] = value
-#define vec_insert(vec, position, value) if(__vector_insert((__vec_ptr*)(&vec), position, sizeof(value))) vec[position] = value
-#define vec_delete(vec, position, num_elements) __vector_delete((__vec_ptr*)(&vec), position, num_elements, sizeof(*vec))
-#define vec_set(vec, position, value) if(__vector_set(vec, position)) vec[position] = value
-#define vec_get(vec, position) (__vector_get(vec, position)) ? vec[position] : 0
+#define vec_insert(vec, index, value) if(__vector_insert((__vec_ptr*)(&vec), index, sizeof(value))) vec[index] = value
+#define vec_delete(vec, index, num_elements) __vector_delete((__vec_ptr*)(&vec), index, num_elements, sizeof(*vec))
+#define vec_set(vec, index, value) if(__vector_set(vec, index)) vec[index] = value
+#define vec_get(vec, index) (__vector_get(vec, index)) ? vec[index] : 0
 #define vec_clear(vec) __vector_clear((__vec_ptr*)(&vec))
 #define vec_fill(vec, value) for(size_t __vec_len = vec_length(v), i = 0; i < __vec_len; ++i) vec[i] = value
-#define vec_fill_range(vec, position, num_elements, value) for(size_t __vec_len = vec_length(v), __vec_start = (position < 0) ? 0 : position, __vec_end = (__vec_start + num_elements > __vec_len) ? __vec_len : __vec_start + num_elements, i = __vec_start; i < __vec_end; ++i) vec[i] = value
+#define vec_fill_range(vec, index, num_elements, value) for(size_t __vec_len = vec_length(v), __vec_start = (index < 0) ? 0 : index, __vec_end = (__vec_start + num_elements > __vec_len) ? __vec_len : __vec_start + num_elements, i = __vec_start; i < __vec_end; ++i) vec[i] = value
 #define vec_reserve(vec, num_elements) __vector_reserve((__vec_ptr*)(&vec), num_elements, sizeof(*vec))
 #define vec_resize(vec, num_elements) __vector_resize((__vec_ptr*)(&vec), num_elements, sizeof(*vec))
 #define vec_shrink(vec) __vector_shrink((__vec_ptr*)(&vec), sizeof(*vec))
