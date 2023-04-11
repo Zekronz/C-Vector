@@ -204,6 +204,22 @@ int __vector_reverse(__vec_ptr _vec, size_t _element_size){
     return 1;
 }
 
+__vec_ptr __vector_clone(__vec_ptr _vec, size_t _element_size){
+    if(_vec == NULL) return NULL;
+
+    __vector* v = __vector_struct(_vec);
+    __vector* new_vec = (__vector*)malloc(sizeof(__vector) + (v->cap * _element_size));
+    if(new_vec == NULL) return NULL;
+
+    new_vec->cap = v->cap;
+    new_vec->len = v->len;
+
+    size_t len = new_vec->len * _element_size;
+    for(size_t i = 0; i < len; ++i) new_vec->data[i] = v->data[i];
+
+    return (__vec_ptr)(&new_vec->data);
+}
+
 int __vector_reserve(__vec_ptr* _vec, size_t _num_elements, size_t _element_size){
     if(_vec == NULL || _element_size == 0) return 0;
     if((*_vec) == NULL) return 0;
