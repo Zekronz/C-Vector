@@ -211,12 +211,16 @@ int __vector_resize(__vec_ptr* _vec, size_t _num_elements, size_t _element_size)
     size_t new_cap = 0;
     if(!__vector_calc_capacity(&new_cap, _num_elements)) return 0; //Overflow.
 
-    __vector* new_vec = __vector_realloc(v, new_cap * _element_size);
-    if(new_vec == NULL) return 0;
+    if(new_cap != v->cap){
+        __vector* new_vec = __vector_realloc(v, new_cap * _element_size);
+        if(new_vec == NULL) return 0;
 
-    new_vec->cap = new_cap;
-    new_vec->len = _num_elements;
-    *_vec = (__vec_ptr)(&new_vec->data);
+        v = new_vec;
+        *_vec = (__vec_ptr)(&new_vec->data);
+    }
+
+    v->cap = new_cap;
+    v->len = _num_elements;
 
     return 1;
 }
