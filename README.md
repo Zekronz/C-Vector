@@ -50,6 +50,11 @@ vec_fill(v, 4.0f); // Fills the entire vector with the specified value.
 vec_fill_range(v, 16, 8, 4.0f); // Fills the vector at the specified position/length with the specified value.
 ```
 
+Reversing vectors:
+```c
+vec_reverse(v); // Reverses the order of all elements in the vector.
+```
+
 Other functions:
 ```c
 vec_length(v); // Returns the length of the vector.
@@ -69,6 +74,7 @@ vec_add(vec, value);
 vec_insert(vec, index, value);
 vec_delete(vec, index, value);
 vec_clear(vec);
+vec_reverse(vec);
 vec_resize(vec, num_elements);
 vec_reserve(vec, num_elements);
 vec_shrink(vec);
