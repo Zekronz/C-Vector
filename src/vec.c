@@ -185,6 +185,25 @@ int __vector_clear(__vec_ptr* _vec){
     return 1;
 }
 
+int __vector_reverse(__vec_ptr _vec, size_t _element_size){
+    if(_vec == NULL) return 0;
+    __vector* v = __vector_struct(_vec);
+
+    size_t middle = ((v->len / 2) + ((v->len & 0x1) == 1)) * _element_size;
+    size_t ind;
+    char temp;
+    for(size_t i = 0; i < middle; i += _element_size){
+        for(size_t j = 0; j < _element_size; ++j){
+            temp = v->data[i + j];
+            ind = ((v->len - 1) * _element_size) - i + j;
+            v->data[i + j] = v->data[ind];
+            v->data[ind] = temp;
+        }
+    }
+
+    return 1;
+}
+
 int __vector_reserve(__vec_ptr* _vec, size_t _num_elements, size_t _element_size){
     if(_vec == NULL || _element_size == 0) return 0;
     if((*_vec) == NULL) return 0;

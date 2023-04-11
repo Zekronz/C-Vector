@@ -33,6 +33,7 @@ int __vector_delete(__vec_ptr* _vec, size_t _index, size_t _num_elements, size_t
 int __vector_set(__vec_ptr _vec, size_t _index);
 int __vector_get(__vec_ptr _vec, size_t _index);
 int __vector_clear(__vec_ptr* _vec);
+int __vector_reverse(__vec_ptr _vec, size_t _element_size);
 int __vector_reserve(__vec_ptr* _vec, size_t _num_elements, size_t _element_size);
 int __vector_resize(__vec_ptr* _vec, size_t _num_elements, size_t _element_size);
 int __vector_shrink(__vec_ptr* _vec, size_t _element_size);
@@ -49,6 +50,7 @@ int __vector_shrink(__vec_ptr* _vec, size_t _element_size);
 #define vec_set(vec, index, value) if(__vector_set(vec, index)) vec[index] = value
 #define vec_get(vec, index) (__vector_get(vec, index)) ? vec[index] : 0
 #define vec_clear(vec) __vector_clear((__vec_ptr*)(&vec))
+#define vec_reverse(vec) __vector_reverse(vec, sizeof(*vec))
 #define vec_fill(vec, value) for(size_t __vec_len = vec_length(v), i = 0; i < __vec_len; ++i) vec[i] = value
 #define vec_fill_range(vec, index, num_elements, value) for(size_t __vec_len = vec_length(v), __vec_start = (index < 0) ? 0 : index, __vec_end = (__vec_start + num_elements > __vec_len) ? __vec_len : __vec_start + num_elements, i = __vec_start; i < __vec_end; ++i) vec[i] = value
 #define vec_reserve(vec, num_elements) __vector_reserve((__vec_ptr*)(&vec), num_elements, sizeof(*vec))
