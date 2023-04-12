@@ -3,10 +3,12 @@
     vec.h
     Copyright (c) 2023 Zekronz - MIT License
 
+    https://github.com/Zekronz/C-Vector
+
 */
 
-#ifndef __VECTOR_H
-#define __VECTOR_H
+#ifndef __ZEKRONZ_VECTOR_H
+#define __ZEKRONZ_VECTOR_H
 
 #ifdef __cplusplus
 extern "C" {

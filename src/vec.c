@@ -3,6 +3,8 @@
     vec.c
     Copyright (c) 2023 Zekronz - MIT License
 
+    https://github.com/Zekronz/C-Vector
+
 */
 
 #include <stdlib.h>
