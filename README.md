@@ -34,7 +34,7 @@ vec_insert(v, 8, 16.0f); // Inserts an element into the vector at the specified 
 vec_delete(v, 0, 4); // Removes n elements from the vector at the specified index.
 vec_clear(v); // Clears the entire vector and sets its length to 0.
 
-// The vector will reallocate it's capacity if necessary.
+// The vector will reallocate its capacity if necessary.
 ```
 
 Resizing vectors:
