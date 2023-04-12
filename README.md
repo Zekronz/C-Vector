@@ -53,11 +53,11 @@ vec_fill_range(v, 16, 8, 4.0f); // Fills the vector at the specified position/le
 Other functions:
 ```c
 vec_reverse(v); // Reverses the order of all elements in the vector.
-vec_clone(v); // Clones the specified vector and returns a pointer to it.
-vec_length(v); // Returns the length of the vector.
-vec_size(v); // Same as vec_length.
-vec_capacity(v); // Returns the allocated capcity of the vector.
-vec_empty(v); // Returns whether the vector is empty or not.
+float* clone = vec_clone(v); // Clones the specified vector and returns a pointer to it.
+size_t len = vec_length(v); // Returns the length of the vector.
+size_t len = vec_size(v); // Same as vec_length.
+size_t cap = vec_capacity(v); // Returns the allocated capcity of the vector.
+int is_empty = vec_empty(v); // Returns whether the vector is empty or not.
 ```
 
 ## Function List
