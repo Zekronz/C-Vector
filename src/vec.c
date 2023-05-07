@@ -61,7 +61,7 @@ int __vector_calc_capacity(size_t* _cap, size_t _dest){
     size_t prev_cap;
     while(new_cap < _dest){
         prev_cap = new_cap;
-        new_cap *= 2;
+        new_cap += (new_cap > 1) ? (new_cap / 2) : 1;
 
         if(new_cap < prev_cap){
             new_cap = __VECTOR_MAX_CAPACITY;
