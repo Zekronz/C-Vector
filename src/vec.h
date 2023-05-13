@@ -47,8 +47,8 @@ int __vector_shrink(__vec_ptr* _vec, size_t _element_size);
 #define vec_length(vec) __vector_length(vec)
 #define vec_size(vec) __vector_length(vec)
 #define vec_capacity(vec) __vector_capacity(vec)
-#define vec_add(vec, value) if(__vector_inc((__vec_ptr*)(&vec), 1, sizeof(value))) vec[__vector_length(vec) - 1] = value
-#define vec_insert(vec, index, value) if(__vector_insert((__vec_ptr*)(&vec), index, sizeof(value))) vec[index] = value
+#define vec_add(vec, value) if(__vector_inc((__vec_ptr*)(&vec), 1, sizeof(*vec))) vec[__vector_length(vec) - 1] = value
+#define vec_insert(vec, index, value) if(__vector_insert((__vec_ptr*)(&vec), index, sizeof(*vec))) vec[index] = value
 #define vec_delete(vec, index, num_elements) __vector_delete((__vec_ptr*)(&vec), index, num_elements, sizeof(*vec))
 #define vec_set(vec, index, value) if(__vector_set(vec, index)) vec[index] = value
 #define vec_get(vec, index) (__vector_get(vec, index)) ? vec[index] : 0
